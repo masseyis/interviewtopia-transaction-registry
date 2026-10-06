@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: Interviewtopia Transaction Registry API
+  version: 1.0.0
+  description: Read-only synthetic transaction terms for the Completion Service assessment.
+  license:
+    name: MIT
+    url: https://opensource.org/license/mit
+security: []
+servers:
+  - url: https://masseyis.github.io/interviewtopia-transaction-registry
+paths:
+  /transactions/{transactionId}.json:
+    get:
+      operationId: getTransaction
+      summary: Get the authoritative terms for a property transaction
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema:
+            type: string
+          example: sale-123
+      responses:
+        '200':
+          description: Current immutable terms for the requested transaction version.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionTerms'
+        '404':
+          description: Transaction not found.
+components:
+  schemas:
+    TransactionTerms:
+      type: object
+      additionalProperties: false
+      required:
+        - transactionId
+        - version
+        - buyerId
+        - propertyId
+        - requiredAmountCents
+        - currency
+        - documentSetVersion
+        - authorisedEstateAgents
+        - authorisedBanks
+        - buyerLawyers
+        - sellerLawyers
+      properties:
+        transactionId:
+          type: string
+        version:
+          type: integer
+          minimum: 1
+        buyerId:
+          type: string
+        propertyId:
+          type: string
+        requiredAmountCents:
+          type: integer
+          format: int64
+          minimum: 1
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+        documentSetVersion:
+          type: integer
+          minimum: 1
+        authorisedEstateAgents:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items: { type: string }
+        authorisedBanks:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items: { type: string }
+        buyerLawyers:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items: { type: string }
+        sellerLawyers:
+          type: array
+          minItems: 1
+          uniqueItems: true
+          items: { type: string }

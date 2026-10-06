@@ -1,0 +1,14 @@
+{
+  "transactionId": "sale-123",
+  "version": 3,
+  "buyerId": "buyer-42",
+  "propertyId": "property-91",
+  "requiredAmountCents": 50000000,
+  "currency": "USD",
+  "documentSetVersion": 3,
+  "authorisedEstateAgents": ["agent-9", "agent-10"],
+  "authorisedBanks": ["bank-7"],
+  "buyerLawyers": ["lawyer-17", "lawyer-18"],
+  "sellerLawyers": ["lawyer-31", "lawyer-32"]
+}
+
